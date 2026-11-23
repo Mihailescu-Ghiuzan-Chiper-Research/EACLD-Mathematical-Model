@@ -1,10 +1,10 @@
 # EACLD-E0: reproducible active-diagnosis experiment
 
-**MDPI Sensors – Security, Measurement and Diagnosis for Networking and Large-Scale Distributed Systems**  
+**MDPI Information – Evidence-Adaptive Cross-Layer Diagnosis (EACLD)**  
 **Research artifact:** differential diagnosis of sensor faults and telemetry attacks (EACLD-E0)  
 **Date:** 4 November 2026
 
-This package implements the first computational version of the research specification *Specificația științifică a metodei EACLD – experimentul E0*, maintained alongside the active plan for MDPI Sensors.
+This package implements the first computational version of the research specification *Specificația științifică a metodei EACLD – experimentul E0*, reported in the MDPI Information research manuscript.
 
 The core scientific object is a finite-state sequential decision algorithm that chooses diagnostic observations based on Bayes risk reduction, action costs, and latent shared trust-domain failures. Its intervention-based simulation distinguishes physical changes, sensor faults, post-authentication tampering, and replay.
 
@@ -22,7 +22,7 @@ The seven comparison policies are B0 (P0 only), B1 (P1 only), B2 (all nonredunda
 
 The decision space includes exact labels, two two-cause classes and an unresolved verdict. Decisions minimize a declared asymmetric loss; incomplete causal attribution is not silently counted as a correct exact diagnosis. Main metrics are exact macro-F1, exact coverage, realized decision loss, decision loss plus normalized probe cost, probe count, latency, bytes and multiclass Brier score.
 
-`RAPORT_REZULTATE_E0.md` contains the complete comparison tables, matched-block 95% bootstrap intervals, findings, limitations and commands. Primary outputs are under `results/`; the two sensitivity configurations have corresponding `results/`, `data/` and `figures/` folders under `sensitivity/`.
+`RAPORT_REZULTATE_E0.md` contains the complete comparison tables, matched-block 95% bootstrap intervals, findings, limitations and commands. Reproducing the experiments generates the `results/` output and the corresponding `results/`, `data/` and `figures/` folders under `sensitivity/`; these generated output directories are not committed to this repository.
 
 ## Reproduction
 
@@ -41,6 +41,8 @@ The command output is deterministic for fixed library versions and seeds; every 
 
 ## File layout
 
+The source code and configurations below are tracked in Git; the output directories are created by experiment execution.
+
 - `config/`: complete deterministic experiment configurations.
 - `eacld/core.py`: finite-state Bayesian inference, loss function and exact Bellman planner.
 - `eacld/simulator.py`: matched intervention blocks, data generation, supervised probability calibration.
@@ -56,4 +58,4 @@ The command output is deterministic for fixed library versions and seeds; every 
 
 ## Method boundaries
 
-The prototype assumes one dominant cause per episode and a static latent verifier state per episode. Probe outcomes are conditionally independent given the cause, verifier health and network mode; this model does **not** assume unconditional independence of security evidence. Exact lookahead is appropriate to four probes; a larger probe catalog requires bounded search, approximate inference or action pruning. The physical ESP32/RTD/MQTT testbed remains a distinct experimental phase.
+The prototype assumes one dominant cause per episode and a static latent verifier state per episode. Probe outcomes are conditionally independent given the cause, verifier health and network mode; this model does **not** assume unconditional independence of security evidence. Exact lookahead is appropriate to four probes; a larger probe catalog requires bounded search, approximate inference or action pruning. The separate five-VM distributed experimental evaluation is documented in the EACLD-Testbed repository.
